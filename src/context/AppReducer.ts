@@ -27,6 +27,16 @@ export default (state: stateType, action: actionType)=>{
                 ...state,
                 transactions: [action.payload.transaction, ...state.transactions]
             }
+        case 'EDIT_TRANSACTION':
+            return {
+                ...state,
+                transactions: state.transactions.map(item => {
+                    if(item.id === action.payload.id){
+                        return {...item, text:action.payload.text, amount: action.payload.amount}
+                    }
+                    return item
+                })
+            }
         default:
             return state
     }

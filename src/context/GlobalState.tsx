@@ -14,12 +14,14 @@ type ContextType = {
     state: stateType;
     deleteTransaction: (id:number) => void
     addTransaction: (transaction:transactionType) => void
+    editTransaction: (id: number, text: string, amount: number) => void
 }
 
 export const GlobalContext = createContext<ContextType>({
     state: initialState,
     deleteTransaction: () => null,
-    addTransaction: () => null
+    addTransaction: () => null,
+    editTransaction: () => null
 })
 
 export const GlobalProvider:React.FC = ({children}) =>{
@@ -41,8 +43,19 @@ export const GlobalProvider:React.FC = ({children}) =>{
         })
     }
 
+    const editTransaction = (id: number, text: string, amount: number)=>{
+        dispatch({
+            type: 'EDIT_TRANSACTION',
+            payload:{
+                id,
+                text,
+                amount
+            }
+        })
+    }
+
     return (
-        <GlobalContext.Provider value={{state, deleteTransaction, addTransaction}}>
+        <GlobalContext.Provider value={{state, deleteTransaction, addTransaction, editTransaction}}>
             {children}
         </GlobalContext.Provider>
     )

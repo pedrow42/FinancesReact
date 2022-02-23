@@ -17,7 +17,6 @@ export default function AddTransaction() {
             amount: Number(amount)
         }
         if(text && Number(amount) !== 0){
-            console.log(amount)
             addTransaction(newTransaction)
             setText('')
             setAmount('')
